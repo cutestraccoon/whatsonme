@@ -18,7 +18,7 @@ export function makeDiscordArchive(): MapArchive {
     'package/README.txt': 'Discord data package',
     'package/messages/index.json': json(Object.fromEntries(channels.map((c) => [c.id, c.label]))),
     'package/servers/index.json': json({ '9001': 'Toronto Founders', '9002': 'Gaming Lounge', '9003': 'Ollama' }),
-    'package/account/user.json': json({ id: '1234', username: 'ferriswheel', discriminator: '0', global_name: 'Ferris', email: 'ferris@example.com', verified: true, phone: '+14165551234', ip: '99.233.10.4', flags: 64, connections: [{ type: 'spotify', name: 'ferriswheel_to' }, { type: 'steam', name: 'ferriswheel' }], relationships: Array.from({ length: 23 }, (_, i) => ({ id: String(5000 + i), type: i < 20 ? 1 : 3, user: { username: 'u' + i } })), payments: [{ id: 'p1', created_at: iso(randomTs(r)), amount: 1399, currency: 'cad', description: 'Nitro Monthly', status: 1 }] }),
+    'package/account/user.json': json({ id: '1234', username: 'alexsample', discriminator: '0', global_name: 'Alex', email: 'alex@example.com', verified: true, phone: '+14165551234', ip: '203.0.113.7', flags: 64, connections: [{ type: 'spotify', name: 'alexsample_to' }, { type: 'steam', name: 'alexsample' }], relationships: Array.from({ length: 23 }, (_, i) => ({ id: String(5000 + i), type: i < 20 ? 1 : 3, user: { username: 'u' + i } })), payments: [{ id: 'p1', created_at: iso(randomTs(r)), amount: 1399, currency: 'cad', description: 'Nitro Monthly', status: 1 }] }),
   };
   for (const c of channels) {
     files[`package/messages/c${c.id}/channel.json`] = json({ id: c.id, type: c.type, name: c.name, ...(c.guild ? { guild: c.guild } : { recipients: ['1234', '5678'] }) });

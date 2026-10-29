@@ -26,9 +26,9 @@ export function makeWhatsappArchive(): MapArchive {
   };
   const d0 = (fmt: (ms: number, who: string, msg: string) => string) => fmt(Date.UTC(2024, 0, 14, 9, 0), '', '').replace(/ - : $/, ' - ').replace(/\] : $/, '] ');
   return archive({
-    'WhatsApp Chat with Omar.txt': chat(android, ['Omar', 'Ferris'], 120, [d0(android) + '‎Messages and calls are end-to-end encrypted. No one outside of this chat, not even WhatsApp, can read or listen to them.']),
-    'WhatsApp Chat - Hafla planning/_chat.txt': chat(ios, ['Ferris', ...NAMES.slice(0, 4)], 90, ['‎' + d0(ios) + '‎Ferris created group "Hafla planning"', '‎' + d0(ios) + '‎Ferris added Layla']),
-    'WhatsApp Chat with Sam.txt': chat(androidUs, ['Sam', 'Ferris'], 60, [d0(androidUs) + 'Messages and calls are end-to-end encrypted.']),
+    'WhatsApp Chat with Omar.txt': chat(android, ['Omar', 'Alex'], 120, [d0(android) + '‎Messages and calls are end-to-end encrypted. No one outside of this chat, not even WhatsApp, can read or listen to them.']),
+    'WhatsApp Chat - Hafla planning/_chat.txt': chat(ios, ['Alex', ...NAMES.slice(0, 4)], 90, ['‎' + d0(ios) + '‎Alex created group "Hafla planning"', '‎' + d0(ios) + '‎Alex added Layla']),
+    'WhatsApp Chat with Sam.txt': chat(androidUs, ['Sam', 'Alex'], 60, [d0(androidUs) + 'Messages and calls are end-to-end encrypted.']),
     'WhatsApp Chat - Hafla planning/00000012-PHOTO-2024-03-02-19-22-10.jpg': new Uint8Array([0xff, 0xd8, 0xff]),
   });
 }

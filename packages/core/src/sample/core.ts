@@ -43,7 +43,7 @@ export function makeInstagramArchive() {
     { name: 'Bank App', events: Array.from({ length: 40 }, (_, i) => ({ type: 'ACTIVATE_APP', timestamp: Math.floor(at(i * 2, 8) / 1000) })) },
     { name: 'Condo Listings', events: Array.from({ length: 30 }, (_, i) => ({ type: 'PAGE_VIEW', timestamp: Math.floor(at(60 + i, 22) / 1000) })) } ] });
   files['personal_information/information_about_you/profile_based_in.json'] = J({ inferred_data_primary_location: [{ string_map_data: { 'City Name': { value: 'Toronto, Ontario' } } }] });
-  files['personal_information/personal_information/personal_information.json'] = J({ profile_user: [{ string_map_data: { Username: { value: 'ferris' }, Gender: { value: 'Male' }, Email: { value: 'ferris@example.com' } } }] });
+  files['personal_information/personal_information/personal_information.json'] = J({ profile_user: [{ string_map_data: { Username: { value: 'alex' }, Gender: { value: 'Male' }, Email: { value: 'alex@example.com' } } }] });
   files['security_and_login_information/login_and_profile/login_activity.json'] = J({ account_history_login_history: Array.from({ length: 30 }, (_, i) => ({ string_map_data: { 'IP Address': { value: `99.230.1.${i % 6}` }, Time: { timestamp: Math.floor(at(i * 4, 9) / 1000) }, 'User Agent': { value: 'Instagram 300.0 (iPhone15,2; iOS 18)' } } })) });
   files['media/posts/x.jpg'] = new Uint8Array([0xff, 0xd8]);
   return new MapArchive(files);
@@ -56,9 +56,9 @@ export function makeTikTokArchive() {
   const j = { 'Your Activity': { 'Watch History': { VideoList }, 'Like List': { ItemFavoriteList }, 'Search History': { SearchList },
       'Login History': { LoginHistoryList: Array.from({ length: 25 }, (_, i) => ({ Date: fmt(at(i * 5, 8)), IP: `99.230.1.${i % 9}`, DeviceModel: 'iPhone15,2', DeviceSystem: 'iOS 18.1', NetworkType: 'Wi-Fi', Carrier: 'Rogers' })) } },
     'Ads and data': { 'Ad Interests': { AdInterestCategories: ['Technology & Electronics', 'Finance & Investing', 'Real Estate', 'Luxury & Watches', 'Gaming'] }, 'Off TikTok Activity': { OffTikTokActivityDataList: Array.from({ length: 20 }, (_, i) => ({ TimeStamp: fmt(at(i * 3, 20)), Source: 'Food Delivery App', Event: 'Purchase' })) } },
-    Profile: { 'Profile Information': { ProfileMap: { userName: 'ferris', birthDate: '1996-04-12', emailAddress: 'ferris@example.com' } } },
+    Profile: { 'Profile Information': { ProfileMap: { userName: 'alex', birthDate: '1996-04-12', emailAddress: 'alex@example.com' } } },
     'App Settings': { Settings: { SettingsMap: { 'Device Model': 'iPhone15,2', 'Country Region': 'CA', Language: 'en' } } },
-    'Direct Messages': { 'Chat History': { ChatHistory: { 'Chat History with sam:': Array.from({ length: 40 }, (_, i) => ({ Date: fmt(at(i * 2, 23)), From: i % 2 ? 'sam' : 'ferris', Content: 'hey' })) } } } };
+    'Direct Messages': { 'Chat History': { ChatHistory: { 'Chat History with sam:': Array.from({ length: 40 }, (_, i) => ({ Date: fmt(at(i * 2, 23)), From: i % 2 ? 'sam' : 'alex', Content: 'hey' })) } } } };
   return new MapArchive({ 'user_data_tiktok.json': J(j) });
 }
 

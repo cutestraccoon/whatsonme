@@ -29,7 +29,7 @@ export function makeXArchive(): MapArchive {
     'Your archive.html': '<html></html>',
     'data/README.txt': 'This archive contains your data',
     'data/manifest.js': 'window.__THAR_CONFIG = {}',
-    'data/account.js': ytd('account', [{ account: { email: 'ferris@example.com', createdVia: 'web', username: 'ferriswheel', accountId: '1234', createdAt: '2012-03-14T18:22:10.000Z', accountDisplayName: 'Ferris' } }]),
+    'data/account.js': ytd('account', [{ account: { email: 'alex@example.com', createdVia: 'web', username: 'alexsample', accountId: '1234', createdAt: '2012-03-14T18:22:10.000Z', accountDisplayName: 'Alex' } }]),
     'data/tweets.js': ytd('tweets', tweets),
     'data/like.js': ytd('like', likes),
     'data/direct-messages.js': ytd('direct_messages', dms),

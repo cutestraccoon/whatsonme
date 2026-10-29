@@ -12,7 +12,7 @@ describe('spotify parser', () => {
     expect(res.events.every((e) => e.title && e.actor)).toBe(true);
     expect(res.claims.find((c) => c.field === 'declared_birth_year')?.value).toBe('1996');
     expect(res.claims.filter((c) => c.field === 'ad_interest').length).toBe(12);
-    expect(res.claims.find((c) => c.field === 'declared_email')?.value).not.toContain('ferris@');
+    expect(res.claims.find((c) => c.field === 'declared_email')?.value).not.toContain('alex@');
     expectMasked(res);
     expect(res.warnings).toEqual([]);
   });

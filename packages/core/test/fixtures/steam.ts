@@ -11,7 +11,7 @@ export function makeSteamArchive(): MapArchive {
   return archive({
     'Steam Data Export/Playtime/GameplayHistory.json': json({ games: playtime }),
     'Steam Data Export/AccountHistory/Logins.csv': ['Time,Action,IP,Country,Device', ...logins].join('\n') + '\n',
-    'Steam Data Export/AccountInfo/AccountInfo.json': json({ steamid: '76561198000000000', persona_name: 'ferriswheel', email: 'ferris@example.com', country: 'CA', time_created: '2012-11-20 03:12:44' }),
+    'Steam Data Export/AccountInfo/AccountInfo.json': json({ steamid: '76561198000000000', persona_name: 'alexsample', email: 'alex@example.com', country: 'CA', time_created: '2012-11-20 03:12:44' }),
     'Steam Data Export/Achievements/achievements.csv': 'appid,achievement,unlocked\n730,first_blood,2024-02-02 10:00:00\n',
     'Steam Data Export/README.txt': 'Steam personal data export',
   });

@@ -20,7 +20,7 @@ describe('instagram', () => {
     const r = await instagram.parse(a); const kinds = count(r.events.map((e) => e.kind));
     expect(kinds.watch).toBeGreaterThan(500); expect(kinds.like).toBeGreaterThan(50); expect(kinds.search).toBe(10); expect(kinds.off_platform).toBe(150); expect(kinds.login).toBe(30); expect(kinds.ad_view).toBeGreaterThan(20);
     expect(r.claims.filter((c) => c.field === 'topic').length).toBe(6); expect(r.claims.filter((c) => c.field === 'advertiser_audience').length).toBe(31); expect(r.claims.find((c) => c.field === 'profile_based_in')?.value).toBe('Toronto, Ontario');
-    expect(r.claims.find((c) => c.field === 'declared_email')?.value).not.toContain('ferris@example'); expect(r.events.every((e) => e.file && inRange(e.ts))).toBe(true); expect(r.events.find((e) => e.kind === 'like')?.url).toContain('instagram.com'); });
+    expect(r.claims.find((c) => c.field === 'declared_email')?.value).not.toContain('alex@example'); expect(r.events.every((e) => e.file && inRange(e.ts))).toBe(true); expect(r.events.find((e) => e.kind === 'like')?.url).toContain('instagram.com'); });
 });
 describe('tiktok', () => {
   it('parses the 2024+ shape', async () => { const a = makeTikTokArchive(); expect(tiktok.detect(a.list())).toBe(true); const r = await tiktok.parse(a); const k = count(r.events.map((e) => e.kind));

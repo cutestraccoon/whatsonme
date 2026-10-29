@@ -13,7 +13,7 @@ describe('discord parser', () => {
     expect(msgs.filter((e) => e.meta?.channel === 'dm').length).toBe(100);
     expect(msgs.some((e) => e.title === 'Gaming Lounge / cs2')).toBe(true); // csv channel
     expect(res.events.filter((e) => e.kind === 'session').length).toBeGreaterThan(50);
-    expect(res.claims.find((c) => c.field === 'declared_username')?.value).toBe('ferriswheel');
+    expect(res.claims.find((c) => c.field === 'declared_username')?.value).toBe('alexsample');
     expect(res.claims.find((c) => c.field === 'friends_count')?.value).toBe('20');
     expect(res.claims.find((c) => c.field === 'servers_count')?.value).toBe('3');
     expectMasked(res);

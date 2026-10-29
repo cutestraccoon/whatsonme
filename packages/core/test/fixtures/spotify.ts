@@ -24,8 +24,8 @@ export function makeSpotifyArchive(): MapArchive {
   return archive({
     'Spotify Account Data/StreamingHistory_music_0.json': json(short.slice(0, 60)),
     'Spotify Account Data/StreamingHistory_music_1.json': json(short.slice(60)),
-    'Spotify Account Data/Userdata.json': json({ username: 'ferriswheel_to', email: 'ferris@example.com', country: 'CA', createdFromFacebook: false, birthdate: '1996-04-12', gender: 'male', postalCode: 'M3C', mobileNumber: '+14165551234', creationTime: '2015-06-02' }),
-    'Spotify Account Data/Identity.json': json({ displayName: 'Ferris', firstName: 'F', lastName: 'W', imageUrl: '', largeImageUrl: '', tasteMaker: false, verified: false }),
+    'Spotify Account Data/Userdata.json': json({ username: 'alexsample_to', email: 'alex@example.com', country: 'CA', createdFromFacebook: false, birthdate: '1996-04-12', gender: 'male', postalCode: 'M3C', mobileNumber: '+14165551234', creationTime: '2015-06-02' }),
+    'Spotify Account Data/Identity.json': json({ displayName: 'Alex', firstName: 'F', lastName: 'W', imageUrl: '', largeImageUrl: '', tasteMaker: false, verified: false }),
     'Spotify Account Data/Inferences.json': json(INTERESTS.map((i) => `1P_Custom_${i.replace(/ /g, '_')}`).concat(['3P_Auto_Intenders', 'Spotify_Segment_Night_Owls'])),
     'Spotify Account Data/Playlist1.json': json({ playlists: [] }),
     'Spotify Extended Streaming History/Streaming_History_Audio_2024_0.json': json(ext),
