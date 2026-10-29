@@ -1,0 +1,12 @@
+{
+  "name": "bigbrother",
+  "private": true,
+  "version": "0.1.0",
+  "workspaces": ["packages/*", "apps/*"],
+  "scripts": {
+    "test": "npm run test -w @bigbrother/core",
+    "build": "npm run build -w @bigbrother/core && npm run build -w @bigbrother/lite",
+    "dev": "npm run dev -w @bigbrother/lite",
+    "desktop": "npm run start -w @bigbrother/desktop"
+  }
+}

@@ -1,0 +1,8 @@
+# Header policy. The document adds a stricter <meta> CSP (connect-src 'none'); browsers enforce both, so the page cannot make any network request,
+# while the service worker (which ignores <meta>) may still precache same-origin files for offline use.
+/*
+  Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data: blob:; connect-src 'self'; worker-src 'self' blob:; manifest-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'none'
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: no-referrer
+  Permissions-Policy: camera=(), microphone=(), geolocation=()
+  Cross-Origin-Opener-Policy: same-origin

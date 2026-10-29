@@ -1,0 +1,25 @@
+{
+  "name": "@bigbrother/desktop",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Big Brother Desktop: localhost-only server that reads your local browser history and data-export zips. Nothing leaves the machine.",
+  "bin": { "bigbrother-desktop": "./bin/bigbrother-desktop.js" },
+  "scripts": {
+    "start": "tsx src/server.ts",
+    "test": "vitest run",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "dependencies": {
+    "@bigbrother/core": "0.1.0",
+    "fflate": "^0.8.2",
+    "sql.js": "^1.12.0",
+    "tsx": "^4.19.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "@types/sql.js": "^1.4.9",
+    "typescript": "^5.6.0",
+    "vitest": "^2.1.0"
+  }
+}
