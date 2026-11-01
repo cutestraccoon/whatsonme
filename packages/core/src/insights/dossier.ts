@@ -70,7 +70,7 @@ export function buildFlags(events: Event[], claims: Claim[], tz = 'UTC'): Flag[]
 }
 
 export function buildRoutine(events: Event[], claims: Claim[], tz: string): Routine {
-  const locs = events.filter((e) => e.kind === 'location' && e.lat != null && e.lon != null);
+  const locs = events.filter((e) => e.kind === 'location' && e.lat != null && e.lon != null && e.meta?.via !== 'health-gpx');
   const trips = events.filter((e) => e.kind === 'trip');
   // cluster by rounded coords (~1km)
   const cl: Record<string, { lat: number; lon: number; n: number; hours: number; nights: number; days: number; files: Set<string>; labels: Record<string, number> }> = {};

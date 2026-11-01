@@ -9,9 +9,10 @@ export class ZipArchive implements Archive {
   private names: string[];
   constructor(data: Uint8Array, keep: (name: string) => boolean = defaultKeep) {
     // Skip media at inflate time: photos/videos are most of the bytes and no parser reads them.
-    const raw = unzipSync(data, { filter: (f) => !f.name.endsWith('/') && keep(norm(f.name)) });
+    const raw = unzipSync(data, { filter: (f) => !f.name.endsWith('/') && (keep(norm(f.name)) || wantNestedZip(norm(f.name), f.originalSize)) });
     this.files = {};
     for (const k of Object.keys(raw)) this.files[norm(k)] = raw[k];
+    expandNested(this.files, keep);
     this.names = Object.keys(this.files);
   }
   list() { return this.names; }
@@ -33,7 +34,7 @@ export async function zipArchiveStreaming(
   await new Promise<void>((resolve, reject) => {
     const uz = new Unzip((file) => {
       const name = norm(file.name);
-      if (file.name.endsWith('/') || !keep(name)) return;
+      if (file.name.endsWith('/') || !(keep(name) || wantNestedZip(name, file.originalSize ?? file.size ?? 0))) return;
       parts[name] = [];
       file.ondata = (err, data, final) => {
         if (err) return reject(err);
@@ -52,6 +53,7 @@ export async function zipArchiveStreaming(
       resolve();
     })().catch(reject);
   });
+  expandNested(files, keep);
   return new MapArchive(files);
 }
 
@@ -87,7 +89,7 @@ export class MultiArchive implements Archive {
 
 export function defaultKeep(name: string): boolean {
   const ext = name.slice(name.lastIndexOf('.') + 1);
-  return ['json', 'js', 'csv', 'txt', 'html', 'htm', 'xml', 'tsv', 'vcf', 'ics'].includes(ext);
+  return ['json', 'js', 'csv', 'txt', 'html', 'htm', 'xml', 'tsv', 'vcf', 'ics', 'gpx'].includes(ext);
 }
 
 export function norm(p: string): string {
@@ -100,4 +102,31 @@ function concat(arrs: Uint8Array[]): Uint8Array {
   let o = 0;
   for (const a of arrs) { out.set(a, o); o += a.length; }
   return out;
+}
+
+/**
+ * Apple (and some others) ship zips inside zips ("Apple_Media_Services.zip" holds more zips). Photo/video/drive
+ * archives are skipped: no parser reads them and they can be gigabytes.
+ */
+const SKIP_NESTED = /(photo|video|movie|drive|mail|notes|contacts|calendar|library\.zip|backup)/i;
+export function wantNestedZip(name: string, size: number): boolean {
+  if (!name.endsWith('.zip')) return false;
+  return !SKIP_NESTED.test(name.slice(name.lastIndexOf('/') + 1)) && size < 400 * 1024 * 1024;
+}
+/** Replaces nested .zip entries in `files` with their (kept) contents, up to `depth` levels. First name wins. */
+export function expandNested(files: Record<string, Uint8Array>, keep: (name: string) => boolean, depth = 3): void {
+  for (const name of Object.keys(files)) {
+    if (!name.endsWith('.zip')) continue;
+    const data = files[name]; delete files[name];
+    if (depth <= 0) continue;
+    try {
+      const inner = unzipSync(data, { filter: (f) => !f.name.endsWith('/') && (keep(norm(f.name)) || wantNestedZip(norm(f.name), f.originalSize)) });
+      const sub: Record<string, Uint8Array> = {};
+      for (const k of Object.keys(inner)) sub[norm(k)] = inner[k];
+      expandNested(sub, keep, depth - 1);
+      // keep the nested zip's own name as a folder: "retail store receipts.zip" -> "retail store receipts/receipt.csv"
+      const pre = name.slice(name.lastIndexOf('/') + 1).replace(/\.zip$/, '');
+      for (const k of Object.keys(sub)) { const key = pre + '/' + k; if (!(key in files)) files[key] = sub[k]; }
+    } catch { /* corrupt or encrypted inner zip: ignore */ }
+  }
 }
